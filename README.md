@@ -53,6 +53,17 @@ Gantry angle is not constant. Meterset weight follows an almost arbitrary patter
 Gantry angle is not constant. Meterset weight follows a specific pattern in such way that the quotient d(Mw) / d(gantry) is constant. Here d(Mw) is the difference in meterset weight between two neighbouring control points, and d(gantry) is the difference in gantry angles between the same two points.
 
 
+## Recognized collimators
+
+The script will read the MLC model from the first dynamic field in the plan. Four types of MLCs are recognized:
+
+- Varian High Definition 120
+- Millennium 120
+- Millennium 80
+- SX2 (Halcyon)
+- Agility (Elekta)
+ 
+ 
 ## Details
 1. Modifying gantry angles mostly does not have the effect one would like. When creating new fields, ESAPI will define gantry angles on its own.
 2. Creating Halcyon fields, for the moment, does not work. You can only modify existing fields.
