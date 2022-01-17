@@ -29,23 +29,26 @@ The opened plan will be copied. Fields in the plan will remain, but the script w
 ## Recognized types of fields
 
 
-*Step and shoot IMRT*
+**Step and shoot IMRT**
 
 All control points have the same gantry angle. Meterset weight follows this pattern:
-
+~~~
 0, A, A, B, B, C, C, ..., Z, Z, 1.
+~~~
 
-*Sliding window IMRT*
+**Sliding window IMRT**
 
 All control points have the same gantry angle. Meterset weight follows this pattern:
+~~~
+0, A, B, C, ..., Z, 1
+~~~
+where no two values are the same.
 
-0, A, B, C, ..., Z, 1, where no two values are the same.
-
-*VMAT*
+**VMAT**
 
 Gantry angle is not constant. Meterset weight follows an almost arbitrary pattern.
 
-*Conformal arc (constant dose rate VMAT)*
+**Conformal arc (constant dose rate VMAT)**
 
 Gantry angle is not constant. Meterset weight follows a specific pattern in such way that the quotient d(Mw) / d(gantry) is constant. Here d(Mw) is the difference in meterset weight between two neighbouring control points, and d(gantry) is the difference in gantry angles between the same two points.
 
@@ -64,7 +67,7 @@ Gantry angle is not constant. Meterset weight follows a specific pattern in such
 
 ## Important note
 
-**Before using this program see the [licence](https://github.com/brjdenis/VarianESAPI-EQD2Converter/blob/master/LICENSE) and make sure you understand it. The program comes with absolutely no guarantees of any kind.**
+**Before using this program see the [licence](https://github.com/brjdenis/VarianESAPI-FieldEditor/blob/master/LICENSE) and make sure you understand it. The program comes with absolutely no guarantees of any kind.**
 
 ```
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
