@@ -1,0 +1,93 @@
+﻿<Window x:Class="FieldEditor.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FieldEditor"
+        mc:Ignorable="d"
+        Height="700" Width="900" Title="Help" Background="AliceBlue" WindowStartupLocation="CenterScreen" FontSize="14">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}"/>
+        <Style TargetType="{x:Type Label}"/>
+        <Style TargetType="{x:Type CheckBox}"/>
+        <Style TargetType="{x:Type ToolTip}"/>
+        <Style TargetType="{x:Type TextBlock}"/>
+        <Style TargetType="{x:Type StackPanel}"/>
+        <Style TargetType="{x:Type GroupBox}"/>
+        <Style TargetType="{x:Type ScrollBar}"/>
+        <Style TargetType="{x:Type TabControl}"/>
+        <Style TargetType="{x:Type TabItem}"/>
+        <Style TargetType="{x:Type TextBox}"/>
+        <Style TargetType="{x:Type Slider}"/>
+    </Window.Resources>
+    <ScrollViewer>
+        <Grid Grid.Row="1" Margin="10,10,10,10" VerticalAlignment="Top"  Width="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" TextWrapping="Wrap" Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}, Path=ActualWidth}">
+                
+                <Bold>How to use</Bold><LineBreak/>
+                Run the script on a plan that already contains the types of fields you wish to deal with. The script
+                reads the data from the fields and displays them in tables that can be edited. Modified data can then
+                be saved back to the plan. You have two options:<LineBreak/>
+                <LineBreak/>
+                <Underline><Italic>Create new plan -> Add new fields</Italic></Underline><LineBreak/>
+                The script will create a new plan and use ESAPI methods to add appropriate fields, taking into account
+                the values in the data tables. Only four types of 
+                fields can be added. The script will try to recognize the types of beams from the data in the first
+                data table. See below.<LineBreak/>
+                <LineBreak/>
+                <Underline><Italic>Copy plan -> Change MLCs/Jaws in-place</Italic></Underline><LineBreak/>
+                The opened plan will be copied. Fields in the plan will remain, but the script will try to 
+                change the parameters. Only MLC and Jaw positions can be changed that way.<LineBreak/>
+                Careful: this method will also leave a "modified" status on the original plan!
+                <LineBreak/>
+                <LineBreak/>
+                
+                <Bold>Recognized types of beams</Bold><LineBreak/>
+                <Underline><Italic>Step and shoot IMRT</Italic></Underline><LineBreak/>
+                 All control points have the same gantry angle. Meterset weight follows this pattern:
+                0, A, A, B, B, C, C, ..., Z, Z, 1.
+                <LineBreak/><LineBreak/>
+                <Underline><Italic>Sliding window IMRT</Italic></Underline><LineBreak/>
+                All control points have the same gantry angle. Meterset weight follows this pattern:
+                0, A, B, C, ..., Z, 1, where no two values are the same.
+                <LineBreak/><LineBreak/>
+                <Underline><Italic>VMAT</Italic></Underline><LineBreak/>
+                Gantry angle is not constant. Meterset weight follows an almost arbitrary pattern.
+                <LineBreak/>
+                <LineBreak/>
+                
+                <Underline><Italic>Conformal arc (constant dose rate VMAT)</Italic></Underline>
+                <LineBreak/>
+                Gantry angle is not constant. Meterset weight follows a specific pattern in such way that the
+                quotient d(Mw) / d(gantry) is constant. Here d(Mw) is the difference in meterset weight between two
+                neighbouring control points, and d(gantry) is the difference in gantry angles between the same two points.
+                <LineBreak/>
+                <LineBreak/>
+                
+                <Bold>Some notes</Bold><LineBreak/>
+                - Modifying gantry angles mostly does not have the effect one would like. When creating new fields,
+                ESAPI will define gantry angles on its own.<LineBreak/>
+                - Creating Halcyon fields, for the moment, does not work. You can only modify existing fields.<LineBreak/>
+                - Even if the script can create/modify a plan, the result may be invalid. Say, for example,
+                creating a VMAT field with only a couple of control points. Or trying to create a mixed Step and shoot/Sliding window
+                 IMRT field etc.<LineBreak/>
+                - If for arc fields d(Mw) / d(gantry) changes by more than 4 % between control points (tested only on one
+                such segment), the field will be considered as VMAT. The script will try to use the corresponding method
+                for creating the field. Otherwise the script will try to create a Conformal arc beam.<LineBreak/>
+                - When creating beams, the script reads certain data from existing field in the plan, that is energy,
+                 treatment unit, dose rate, technique, couch angle, isocentre, MLC type, gantry rotation direction. All these
+                parameters cannot be changed, so always start with the appropriate field.<LineBreak/>
+  
+
+            </TextBlock>
+        </Grid>
+    </ScrollViewer>
+
+
+</Window>
