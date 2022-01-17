@@ -36,6 +36,8 @@ All control points have the same gantry angle. Meterset weight follows this patt
 0, A, A, B, B, C, C, ..., Z, Z, 1.
 ~~~
 
+MLC leaves can move only between control points with equal meterset weight.
+
 **Sliding window IMRT:**
 
 All control points have the same gantry angle. Meterset weight follows this pattern:
