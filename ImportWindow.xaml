@@ -1,0 +1,41 @@
+﻿<Window x:Class="FieldEditor.ImportWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FieldEditor"
+             mc:Ignorable="d" Title="Import table"
+             Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}"/>
+        <Style TargetType="{x:Type Label}"/>
+        <Style TargetType="{x:Type Border}"/>
+        <Style TargetType="{x:Type CheckBox}"/>
+        <Style TargetType="{x:Type DataGrid}"/>
+        <Style TargetType="{x:Type ToolTip}"/>
+        <Style TargetType="{x:Type TextBlock}"/>
+        <Style TargetType="{x:Type StackPanel}"/>
+        <Style TargetType="{x:Type GroupBox}"/>
+        <Style TargetType="{x:Type ScrollBar}"/>
+        <Style TargetType="{x:Type ScrollViewer}"/>
+        <Style TargetType="{x:Type TextBox}"/>
+    </Window.Resources>
+    
+    <Grid Margin="10,0,0,10" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,10,0,0">
+            <Button Content="Import control points" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="130" Height="22" Grid.Column="1" Click="Button_Click"/>
+            <Button Content="Import MLC" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="75" Height="22" RenderTransformOrigin="0,0.3" />
+        </StackPanel>
+        <TextBox Grid.Row="1" x:Name="ImportTextBox" HorizontalAlignment="Stretch" Height="Auto" Margin="10,10,10,10" VerticalAlignment="Stretch" Width="Auto" HorizontalScrollBarVisibility="Visible" 
+         VerticalScrollBarVisibility="Visible" AcceptsReturn="True" AcceptsTab="True" FontSize="14" Grid.Column="0" MaxWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ActualWidth}"/>
+    </Grid>
+
+</Window>

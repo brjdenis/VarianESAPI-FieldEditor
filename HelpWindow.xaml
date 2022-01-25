@@ -83,7 +83,10 @@
                 - When creating beams, the script reads certain data from existing field in the plan, that is energy,
                  treatment unit, dose rate, technique, couch angle, isocentre, MLC type, gantry rotation direction. All these
                 parameters cannot be changed, so always start with the appropriate field.<LineBreak/>
-  
+                - You can import meterset weights and gantry angle for the selected beam by clicking the Import button.
+                The easiest way of doing this is to first copy the datagrid to Excel, edit the data, and copy the
+                data back to the datagrid. Make sure you have exactly three columns in each row, separated with whitespace.
+                And no empty line at the end.<LineBreak/>
 
             </TextBlock>
         </Grid>

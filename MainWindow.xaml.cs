@@ -33,8 +33,6 @@ namespace FieldEditor
 
         public List<DataGridBeam> DataGridBeamList = new List<DataGridBeam>() { };
         public ListCollectionView DataGridBeamCollection { get; set; }
-        public ListCollectionView DataGridControlPointsCollection { get; set; }
-        public ListCollectionView DataGridControlPointsMLCCollection { get; set; }
 
         public PlotModel PlotModelAperture { get; set; }
         public PlotModel PlotModelMeterset { get; set; }
@@ -1315,7 +1313,7 @@ namespace FieldEditor
             PlotMLC();
         }
 
-        private void RefreshDataGrid(int beamIndex)
+        public void RefreshDataGrid(int beamIndex)
         {
             // this is the stupidest way of refreshing the tables and plots
             this.BeamComboBox.SelectedIndex = -1;
@@ -1888,6 +1886,13 @@ namespace FieldEditor
             HelpWindow helpwindow = new HelpWindow();
             helpwindow.Owner = this;
             helpwindow.Show();
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            ImportWindow importWindow = new ImportWindow();
+            importWindow.Owner = this;
+            importWindow.Show();
         }
     }
 }

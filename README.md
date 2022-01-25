@@ -70,13 +70,24 @@ The script will read the MLC model from the first dynamic field in the plan. Fou
 - To move MLC in bulk/batch, select multiple control points and MLCs. You can do that by holding down CTRL or SHIFT and clicking on the rows. After you select control points and try to select MLCs, control points will remain selected.
 - You can zoom in and pan the plot with the mouse. Use right and middle buttons.
 - Adding control points is something not particularly useful with VMAT plans, because that may render them invalid. But it is useful for IMRT plans. The rule is: when adding a control points, its meterset weight and MLC positions will be interpolated between its neighbors.
+- Say you wish to convert a VMAT plan into a "conformal arc", that is a plan with equally dynamic leaves, but with a constant dose rate (see above). Simply import a new set of meterset weights, such that the quotient dMw/dgantry is constant. This can be achieved with this formula: Mw_i = Mw_i-1 + DELTA * gantry-angle_difference where DELTA = 1/ARCLENGTH and the first Mw_0 = 0. And then click "Create plan".
+
+## Importing data from Excel
+
+Right now, only meterset weight and gantry angle can be imported.
+
+1. Select the beam you would like to import/re-write. 
+2. Copy the data (CTRL + C) to Excel and edit the data.
+3. Copy the data from Excel to the Import window. Make sure the structure is correct: the last line empty, each row must have exactly three columns, separated with whitespace. Click import. You do not need to close the import window.
+ 
+![image](image2.png)
  
 ## Details
 0. Values for parameters are the same as in ESAPI (or Eclipse). Numbering of MLC leaves is also the same as in Eclipse, up to the fact that indexing starts with 0, not with 1.
 1. Modifying gantry angles mostly does not have the effect one would like. When creating new fields, ESAPI will define gantry angles on its own.
 2. Creating Halcyon fields, for the moment, does not work. You can only modify existing fields.
 3. Even if the script can create/modify a plan, the result may be invalid. Say, for example, creating a VMAT field with only a couple of control points. Or trying to create a mixed Step and shoot/Sliding window  IMRT field etc.
-4. If for arc fields d(Mw) / d(gantry) changes by more than 4 % between control points (tested only on one such segment), the field will be considered as VMAT. The script will try to use the corresponding method for creating the field. Otherwise the script will try to create a Conformal arc beam.
+4. If for arc fields d(Mw) / d(gantry) changes by more than 4 % between control points (tested only on one such segment), the field will be considered as VMAT. The script will try to use the corresponding method for creating the field. Otherwise the script will try to create a Conformal arc beam. It is possible that this 4 % threshold is not generally valid, and may depend on machine characterization. In this case, you will have to modify the script.
 5. When creating beams, the script reads certain data from existing field in the plan, that is energy, treatment unit, dose rate, technique, couch angle, isocentre, MLC type, gantry rotation direction. All these parameters cannot be changed, so always start with the appropriate field.
 6. When applying an action to selected MLC leaves, the script will check whether any two opposing leaves will collide and prevent that from happening. However, Eclipse may still raise an error, so always run the "Verify mlc parameters".
 7. Meterset plot comes in three forms: Mw, dMw and dMw/dgantry. The second one is just the difference between neighbouring points.
