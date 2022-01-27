@@ -74,7 +74,9 @@ The script will read the MLC model from the first dynamic field in the plan. Fou
 
 ## Importing data from Excel
 
-Right now, only meterset weight and gantry angle can be imported.
+Meterset weight and gantry angle can be imported with the "Import control points" button. MLC positions can be imported with the "Import MLC" button.
+
+To import meterset weight/gantry angles do this:
 
 1. Select the beam you would like to import/re-write. 
 2. Copy the data (CTRL + C) to Excel and edit the data.
@@ -82,6 +84,19 @@ Right now, only meterset weight and gantry angle can be imported.
  
 ![image](image2.png)
  
+To import MLC positions do this:
+
+1. Select the beam you would like to modify.
+2. Click the "Copy mlc" button. The data will be copied to the clipboard.
+3. Paste the data into Excel using the "Import text wizard". Use whitespace as the delimiter.
+4. Edit the data, and copy-paste it into the import window of FieldEditor. Click the "Import MLC" button.  The data has to be in exactly the right format, that is:
+	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+	- etc for each control point in the right order...
+
+![image](image3.png)
+
 ## Details
 0. Values for parameters are the same as in ESAPI (or Eclipse). Numbering of MLC leaves is also the same as in Eclipse, up to the fact that indexing starts with 0, not with 1.
 1. Modifying gantry angles mostly does not have the effect one would like. When creating new fields, ESAPI will define gantry angles on its own.
@@ -95,6 +110,7 @@ Right now, only meterset weight and gantry angle can be imported.
 
 ## Log
 
+- (27.1.2022) Added the option of importing meterset weights and MLC positions from text files.
 
 
 ## Important note

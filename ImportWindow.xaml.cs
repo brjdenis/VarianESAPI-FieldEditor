@@ -25,6 +25,18 @@ namespace FieldEditor
             InitializeComponent();
         }
 
+        private double ConvertTextToDouble(string text)
+        {
+            if (Double.TryParse(text, out double result))
+            {
+                return result;
+            }
+            else
+            {
+                return Double.NaN;
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // Import control point data (meterset, gantry angle)
@@ -51,22 +63,44 @@ namespace FieldEditor
             for (int i = 0; i < datagrid.ElementAt(beamIndex).Datatable.Count(); i++)
             {
                 datagrid.ElementAt(beamIndex).Datatable[i].MetersetWeight = meterset[i];
+                datagrid.ElementAt(beamIndex).Datatable[i].Gantry = gantryAngle[i];
             }
 
             ((MainWindow)Application.Current.MainWindow).RefreshDataGrid(beamIndex);
         }
 
 
-        private double ConvertTextToDouble(string text)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (Double.TryParse(text, out double result))
+            // IMport MLCs.
+            // The table must be ordered like this.
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            var datagrid = ((MainWindow)Application.Current.MainWindow).DataGridBeamList;
+            int beamIndex = ((MainWindow)Application.Current.MainWindow).BeamComboBox.SelectedIndex;
+            int numberOfLines = this.ImportTextBox.LineCount;
+            int numLeaves = datagrid[beamIndex].Datatable[0].MLCPositions.Count;
+
+            for (int line = 0; line < numberOfLines; line++)
             {
-                return result;
+                string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+
+                if (array.Length != 2 * numLeaves)
+                {
+                    MessageBox.Show("Line " + line.ToString() + " does not contain " + (numLeaves + 1).ToString() + " columns!", "Error");
+                    return;
+                }
+
+                for (int j = 0; j < numLeaves; j++)
+                {
+                    datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC1 = (float)ConvertTextToDouble(array[j]);
+                    datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC2 = (float)ConvertTextToDouble(array[numLeaves + j]);
+                }
             }
-            else
-            {
-                return Double.NaN;
-            }
+            ((MainWindow)Application.Current.MainWindow).RefreshDataGrid(beamIndex);
+            ((MainWindow)Application.Current.MainWindow).PlotMLC();
         }
     }
 }

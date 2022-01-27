@@ -447,7 +447,7 @@ namespace FieldEditor
             this.PlotModelAperture.InvalidatePlot(false);
         }
 
-        private void PlotMLC()
+        public void PlotMLC()
         {
             if (this.DataGridControlPoints.SelectedIndex != -1)
             {
@@ -1878,7 +1878,6 @@ namespace FieldEditor
 
             this.SelectedControlPoints = new List<int>() { 0 };
             RefreshDataGrid(beamIndex);
-
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -1893,6 +1892,31 @@ namespace FieldEditor
             ImportWindow importWindow = new ImportWindow();
             importWindow.Owner = this;
             importWindow.Show();
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            // Copy MLC positions to clipboard
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            // MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+            int beamIndex = this.BeamComboBox.SelectedIndex;
+            string clipboardText = "";
+
+            for (int i = 0; i < this.DataGridBeamList[beamIndex].Datatable.Count; i++)
+            {
+                var mlcPos = this.DataGridBeamList[beamIndex].Datatable[i].MLCPositions;
+                var lineTextMLC1 = "";
+                var lineTextMLC2 = "";
+                for (int j = 0; j < mlcPos.Count; j++)
+                {
+                    lineTextMLC1 += mlcPos[j].MLC1 + " ";
+                    lineTextMLC2 += mlcPos[j].MLC2 + " ";
+                }
+                clipboardText += lineTextMLC1 + lineTextMLC2 + "\n";
+            }
+            Clipboard.SetData(DataFormats.Text, clipboardText);
         }
     }
 }
