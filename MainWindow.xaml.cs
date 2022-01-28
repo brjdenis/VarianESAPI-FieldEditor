@@ -1911,10 +1911,25 @@ namespace FieldEditor
                 var lineTextMLC2 = "";
                 for (int j = 0; j < mlcPos.Count; j++)
                 {
-                    lineTextMLC1 += mlcPos[j].MLC1 + " ";
-                    lineTextMLC2 += mlcPos[j].MLC2 + " ";
+                    lineTextMLC1 += mlcPos[j].MLC1.ToString() + " ";
+                    lineTextMLC2 += mlcPos[j].MLC2.ToString() + " ";
                 }
                 clipboardText += lineTextMLC1 + lineTextMLC2 + "\n";
+            }
+            Clipboard.SetData(DataFormats.Text, clipboardText);
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            // Copy jaw positions to clipboard
+            int beamIndex = this.BeamComboBox.SelectedIndex;
+            string clipboardText = "";
+
+            for (int i = 0; i < this.DataGridBeamList[beamIndex].Datatable.Count; i++)
+            {
+                var jawPos = this.DataGridBeamList[beamIndex].Datatable[i].JawPositions[0];
+
+                clipboardText += jawPos.JawX1.ToString() + " " + jawPos.JawX2.ToString() + " " + jawPos.JawY1.ToString() + " " + jawPos.JawY2.ToString() + "\n";
             }
             Clipboard.SetData(DataFormats.Text, clipboardText);
         }

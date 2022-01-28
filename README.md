@@ -74,8 +74,9 @@ The script will read the MLC model from the first dynamic field in the plan. Fou
 
 ## Importing data from Excel
 
-Meterset weight and gantry angle can be imported with the "Import control points" button. MLC positions can be imported with the "Import MLC" button.
-
+Meterset weight and gantry angle can be imported with the "Import control points" button. MLC positions can be imported with the "Import MLC" button. And Jaw positions
+ can be imported with the "Import Jaws" button.
+ 
 To import meterset weight/gantry angles do this:
 
 1. Select the beam you would like to import/re-write. 
@@ -90,12 +91,25 @@ To import MLC positions do this:
 2. Click the "Copy mlc" button. The data will be copied to the clipboard.
 3. Paste the data into Excel using the "Import text wizard". Use whitespace as the delimiter.
 4. Edit the data, and copy-paste it into the import window of FieldEditor. Click the "Import MLC" button.  The data has to be in exactly the right format, that is:
-	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
-	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
-	- MLC1_0, MLC1_1, MLC1_2 .... MLC2_0, MLC2_1, ...
+	- MLC1_0 MLC1_1 MLC1_2 .... MLC2_0 MLC2_1 ...
+	- MLC1_0 MLC1_1 MLC1_2 .... MLC2_0 MLC2_1 ...
+	- MLC1_0 MLC1_1 MLC1_2 .... MLC2_0 MLC2_1 ...
 	- etc for each control point in the right order...
 
 ![image](image3.png)
+
+To import Jaw positions do this:
+
+1. Select the beam you would like to modify.
+2. Click the "Copy Jaws" button. The data will be copied to the clipboard.
+3. Paste the data into Excel using the "Import text wizard". Use whitespace as the delimiter.
+4. Edit the data, and copy-paste it into the import window of FieldEditor. Click the "Import Jaws" button.  The data has to be in exactly the right format, that is:
+	- X1 X2 Y1 Y2
+	- X1 X2 Y1 Y2
+	- X1 X2 Y1 Y2
+	- etc for each control points
+
+![image](image4.png)
 
 ## Details
 0. Values for parameters are the same as in ESAPI (or Eclipse). Numbering of MLC leaves is also the same as in Eclipse, up to the fact that indexing starts with 0, not with 1.
@@ -111,6 +125,7 @@ To import MLC positions do this:
 ## Log
 
 - (27.1.2022) Added the option of importing meterset weights and MLC positions from text files.
+- (28.1.2022) Added the option of importing jaw positions from text files.
 
 
 ## Important note

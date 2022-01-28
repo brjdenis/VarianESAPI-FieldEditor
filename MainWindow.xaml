@@ -75,20 +75,22 @@
 
                     <ComboBox x:Name="BeamComboBox" HorizontalAlignment="Left" ItemsSource="{Binding DataGridBeam, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" DisplayMemberPath="BeamId" Height="30" Width="100" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="BeamComboBox_SelectionChanged" SourceUpdated="DataGridControlPoints_SourceUpdated" IsSynchronizedWithCurrentItem="False"></ComboBox>
 
-                    <Label Margin="10,0,0,0" Content="Meterset plot type:" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
+                    <Label Margin="10,0,0,0" Content="Mw plot type:" HorizontalAlignment="Left" VerticalAlignment="Center"></Label>
                     <ComboBox x:Name="MetersetPlotType" Height="30" Width="100" VerticalAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="MetersetPlotType_SelectionChanged"></ComboBox>
 
                     <Button Margin="20,0,0,0" Content="Delete control points" Width="120" Click="Button_Click_3"></Button>
 
                     <Button Margin="10,0,0,0" Content="Add control point" Width="110" Click="Button_Click_4"></Button>
 
-                    <Button Margin="10,0,0,0" Content="Copy mlc" Width="60" Click="Button_Click_7"></Button>
+                    <Button Margin="10,0,0,0" Content="Copy MLC" Width="60" Click="Button_Click_7"></Button>
+
+                    <Button Margin="10,0,0,0" Content="Copy Jaws" Width="60" Click="Button_Click_8"></Button>
                     
                     <Button Margin="10,0,0,0" Content="Import" Width="60" Click="Button_Click_6"></Button>
 
                     <DockPanel HorizontalAlignment="Right" >
                         <Button Content="Help" Margin="0,0,5,0" Width="40" Click="Button_Click_5"> </Button>
-                        <Button Margin="0,0,0,0" Content="Create new plan --> Add new fields" Click="Button_Click_1" Height="30" Width="200" Background="LightGreen"></Button>
+                        <Button Margin="0,0,0,0" Content="New plan --> Add new fields" Click="Button_Click_1" Height="30" Width="170" Background="LightGreen"></Button>
                         <Button Margin="5,0,0,0" Content="Copy plan --> Change MLCs/Jaws in-place" Click="Button_Click" Height="30" Width="235" Background="LightGreen"></Button>
                     </DockPanel>
                     

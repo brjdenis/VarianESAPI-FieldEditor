@@ -48,25 +48,32 @@ namespace FieldEditor
             var datagrid = ((MainWindow)Application.Current.MainWindow).DataGridBeamList;
             int beamIndex = ((MainWindow)Application.Current.MainWindow).BeamComboBox.SelectedIndex;
 
-            for (int line = 0; line < numberOfLines; line++)
+            try
             {
-                string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
-                if (array.Length != 3)
+                for (int line = 0; line < numberOfLines; line++)
                 {
-                    MessageBox.Show("Line " + line.ToString() + " does not contain three columns!", "Error");
-                    return;
+                    string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+                    if (array.Length != 3)
+                    {
+                        MessageBox.Show("Line " + line.ToString() + " does not contain three columns!", "Error");
+                        return;
+                    }
+                    gantryAngle.Add(ConvertTextToDouble(array[1]));
+                    meterset.Add(ConvertTextToDouble(array[2]));
                 }
-                gantryAngle.Add(ConvertTextToDouble(array[1]));
-                meterset.Add(ConvertTextToDouble(array[2]));
-            }
 
-            for (int i = 0; i < datagrid.ElementAt(beamIndex).Datatable.Count(); i++)
-            {
-                datagrid.ElementAt(beamIndex).Datatable[i].MetersetWeight = meterset[i];
-                datagrid.ElementAt(beamIndex).Datatable[i].Gantry = gantryAngle[i];
-            }
+                for (int i = 0; i < datagrid.ElementAt(beamIndex).Datatable.Count(); i++)
+                {
+                    datagrid.ElementAt(beamIndex).Datatable[i].MetersetWeight = meterset[i];
+                    datagrid.ElementAt(beamIndex).Datatable[i].Gantry = gantryAngle[i];
+                }
 
             ((MainWindow)Application.Current.MainWindow).RefreshDataGrid(beamIndex);
+            }
+            catch (Exception f)
+            {
+                MessageBox.Show("Something went wrong. Probably the format of the text is wrong.\n\n" + f.ToString(), "Error");
+            }
         }
 
 
@@ -83,24 +90,71 @@ namespace FieldEditor
             int numberOfLines = this.ImportTextBox.LineCount;
             int numLeaves = datagrid[beamIndex].Datatable[0].MLCPositions.Count;
 
-            for (int line = 0; line < numberOfLines; line++)
+            try
             {
-                string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
-
-                if (array.Length != 2 * numLeaves)
+                for (int line = 0; line < numberOfLines; line++)
                 {
-                    MessageBox.Show("Line " + line.ToString() + " does not contain " + (numLeaves + 1).ToString() + " columns!", "Error");
-                    return;
-                }
+                    string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int j = 0; j < numLeaves; j++)
-                {
-                    datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC1 = (float)ConvertTextToDouble(array[j]);
-                    datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC2 = (float)ConvertTextToDouble(array[numLeaves + j]);
+                    if (array.Length != 2 * numLeaves)
+                    {
+                        MessageBox.Show("Line " + line.ToString() + " does not contain " + (numLeaves + 1).ToString() + " columns!", "Error");
+                        return;
+                    }
+
+                    for (int j = 0; j < numLeaves; j++)
+                    {
+                        datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC1 = (float)ConvertTextToDouble(array[j]);
+                        datagrid.ElementAt(beamIndex).Datatable[line].MLCPositions[j].MLC2 = (float)ConvertTextToDouble(array[numLeaves + j]);
+                    }
                 }
-            }
             ((MainWindow)Application.Current.MainWindow).RefreshDataGrid(beamIndex);
-            ((MainWindow)Application.Current.MainWindow).PlotMLC();
+                ((MainWindow)Application.Current.MainWindow).PlotMLC();
+            }
+            catch (Exception f)
+            {
+                MessageBox.Show("Something went wrong. Probably the format of the text is wrong.\n\n" + f.ToString(), "Error");
+            }
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            // Import Jaws
+            // Format of the table:
+            // X1 X2 Y1 Y2
+            // X1 X2 Y1 Y2
+            // X1 X2 Y1 Y2
+            // etc for each control point
+
+            var datagrid = ((MainWindow)Application.Current.MainWindow).DataGridBeamList;
+            int beamIndex = ((MainWindow)Application.Current.MainWindow).BeamComboBox.SelectedIndex;
+            int numberOfLines = this.ImportTextBox.LineCount;
+
+            try
+            {
+                for (int line = 0; line < numberOfLines; line++)
+                {
+                    string[] array = this.ImportTextBox.GetLineText(line).Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (array.Length != 4)
+                    {
+                        MessageBox.Show("Line " + line.ToString() + " does not contain 4 columns!", "Error");
+                        return;
+                    }
+
+                    datagrid.ElementAt(beamIndex).Datatable[line].JawPositions[0].JawX1 = (float)ConvertTextToDouble(array[0]);
+                    datagrid.ElementAt(beamIndex).Datatable[line].JawPositions[0].JawX2 = (float)ConvertTextToDouble(array[1]);
+                    datagrid.ElementAt(beamIndex).Datatable[line].JawPositions[0].JawY1 = (float)ConvertTextToDouble(array[2]);
+                    datagrid.ElementAt(beamIndex).Datatable[line].JawPositions[0].JawY2 = (float)ConvertTextToDouble(array[3]);
+                }
+            ((MainWindow)Application.Current.MainWindow).RefreshDataGrid(beamIndex);
+                ((MainWindow)Application.Current.MainWindow).PlotMLC();
+            }
+            catch (Exception f)
+            {
+                MessageBox.Show("Something went wrong. Probably the format of the text is wrong.\n\n" + f.ToString(), "Error");
+            }
         }
     }
 }

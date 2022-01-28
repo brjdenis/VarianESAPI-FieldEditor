@@ -32,7 +32,8 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,10,0,0">
             <Button Content="Import control points" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="130" Height="22" Grid.Column="1" Click="Button_Click"/>
-            <Button Content="Import MLC" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="75" Height="22" RenderTransformOrigin="0,0.3" Click="Button_Click_1" />
+            <Button Content="Import MLC"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="75" Height="22" RenderTransformOrigin="0,0.3" Click="Button_Click_1" />
+            <Button Content="Import Jaws"  HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="75" Height="22" RenderTransformOrigin="0,0.3" Click="Button_Click_2" />
         </StackPanel>
         <TextBox Grid.Row="1" x:Name="ImportTextBox" HorizontalAlignment="Stretch" Height="Auto" Margin="10,10,10,10" VerticalAlignment="Stretch" Width="Auto" HorizontalScrollBarVisibility="Visible" 
          VerticalScrollBarVisibility="Visible" AcceptsReturn="True" AcceptsTab="True" FontSize="14" Grid.Column="0" MaxWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=ActualWidth}"/>
